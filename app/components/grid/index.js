@@ -37,12 +37,13 @@ const GridLayout = widthProvider(ResponsiveGridLayout);
 	render() {
 		const {gridStore, uiStore} = this.props;
 		const cols = {lg: 6, sm: 4};
+		const mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
 		return (
 			<ContextMenuTrigger
 				className={css.main}
 				id="grid"
-				holdToDisplay={2000}
+				holdToDisplay={-1}
 				collect={this.onCollect}
 				onItemClick={this.handleItemClick}
 				disable={uiStore.disableContextMenu}
@@ -76,7 +77,7 @@ const GridLayout = widthProvider(ResponsiveGridLayout);
 									<ContextMenuTrigger
 										style={{height: '100%'}}
 										id="grid"
-										holdToDisplay={1000}
+										holdToDisplay={mobile ? 1000 : -1}
 										collect={this.onCollect}
 										onItemClick={this.handleItemClick}
 										itemId={item.id}
