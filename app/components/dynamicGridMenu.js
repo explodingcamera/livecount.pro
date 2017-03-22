@@ -11,6 +11,7 @@ const DynamicMenu = props => {
 		if (trigger.gridItem) {
 			items.push(<MenuItem onClick={handleItemClick} data={{action: 'REMOVE_ITEM'}}>{`Remove`}</MenuItem>);
 		}
+		items.push(<MenuItem onClick={handleItemClick}>{`Cancel`}</MenuItem>);
 	}
 	return (
 		<ContextMenu id={id}>

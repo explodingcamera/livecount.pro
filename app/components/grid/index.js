@@ -40,7 +40,6 @@ const GridLayout = widthProvider(ResponsiveGridLayout);
 
 		return (
 			<ContextMenuTrigger
-				className={css.main}
 				id="grid"
 				holdToDisplay={-1}
 				collect={this.onCollect}
@@ -49,52 +48,53 @@ const GridLayout = widthProvider(ResponsiveGridLayout);
 				>
 				<DynamicGridMenu id="grid"/>
 				{gridStore.enableGrid && (
-					<GridLayout
-						onDragStart={this.handleDisableContextMenu}
-						onDragStop={this.handleEnableContextMenu}
-						onResizeStart={this.handleDisableContextMenu}
-						onResizeStop={this.handleEnableContextMenu}
-						breakpoints={{lg: 1000, sm: 0}}
-						measureBeforeMount
-						rowHeight={120}
-						className={css.layout}
-						onLayoutChange={gridStore.onLayoutChange} // eslint-disable-line react/jsx-handler-names
-						layouts={gridStore.layouts}
-						cols={cols}
-						draggableCancel={'.nonDraggable'}
-						draggableHandle={'.draggable'}
-						verticalCompact={false}
-						>
-						{gridStore.items.map(item => {
-							let GridItem;
-							switch (item.type) {
-								case 'someweirdtype':
+				<GridLayout
+					onDragStart={this.handleDisableContextMenu}
+					onDragStop={this.handleEnableContextMenu}
+					onResizeStart={this.handleDisableContextMenu}
+					onResizeStop={this.handleEnableContextMenu}
+					breakpoints={{lg: 1000, sm: 0}}
+					measureBeforeMount
+					rowHeight={120}
+					className={css.layout}
+					onLayoutChange={gridStore.onLayoutChange} // eslint-disable-line react/jsx-handler-names
+					layouts={gridStore.layouts}
+					cols={cols}
+					draggableCancel={'.nonDraggable'}
+					draggableHandle={'.draggable'}
+					verticalCompact={false}
+					>
+					{gridStore.items.map(item => {
+						let GridItem;
+						switch (item.type) {
+							case 'someweirdtype':
 
-									break;
-								default: {
-									GridItem = <GenericGridItem item={item}/>;
-								}
+								break;
+							default: {
+								GridItem = <GenericGridItem item={item}/>;
 							}
-							return (
-								<div key={item.id}>
-									<ContextMenuTrigger
-										style={{height: '100%'}}
-										id="grid"
-										holdToDisplay={mobile ? 1000 : -1}
-										collect={this.onCollect}
-										onItemClick={this.handleItemClick}
-										itemId={item.id}
-										gridItem
-										disable={uiStore.disableContextMenu}
-										>
-										{GridItem}
-									</ContextMenuTrigger>
-								</div>
-							);
-						})}
-					</GridLayout>
-				)}
+						}
+						return (
+							<div key={item.id}>
+								<ContextMenuTrigger
+									style={{height: '100%'}}
+									id="grid"
+									holdToDisplay={mobile ? 1000 : -1}
+									collect={this.onCollect}
+									onItemClick={this.handleItemClick}
+									itemId={item.id}
+									gridItem
+									disable={uiStore.disableContextMenu}
+									>
+									{GridItem}
+								</ContextMenuTrigger>
+							</div>
+						);
+					})}
+				</GridLayout>
+					)}
 			</ContextMenuTrigger>
+
 		);
 	}
 }
