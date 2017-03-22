@@ -12,7 +12,7 @@ import css from 'css/appComponent.css';
 				<div className={css.appBar}>
 					<h1>livecount.pro beta</h1>
 					<Ripple>
-						<i onClick={uiStore.handleToggleDialog} className={'material-icons'}>{'add'}</i>
+						<i style={{cursor: 'pointer'}} onClick={uiStore.handleToggleDialog} className={'material-icons'}>{'add'}</i>
 					</Ripple>
 				</div>
 				{this.props.children}

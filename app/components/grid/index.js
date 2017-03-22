@@ -27,13 +27,12 @@ const GridLayout = widthProvider(ResponsiveGridLayout);
 		}
 	}
 
-	// handleDisableContextMenu = () => {
-	// 	this.props.uiStore.disableContextMenu = true;
-	// }
-	// handleEnableContextMenu = () => {
-	// 	this.props.uiStore.disableContextMenu = false;
-	// 	this.dragAmount = 0;
-	// }
+	handleDisableContextMenu = () => {
+		this.props.uiStore.disableContextMenu = true;
+	}
+	handleEnableContextMenu = () => {
+		this.props.uiStore.disableContextMenu = false;
+	}
 	render() {
 		const {gridStore, uiStore} = this.props;
 		const cols = {lg: 6, sm: 4};
@@ -51,6 +50,10 @@ const GridLayout = widthProvider(ResponsiveGridLayout);
 				<DynamicGridMenu id="grid"/>
 				{gridStore.enableGrid && (
 					<GridLayout
+						onDragStart={this.handleDisableContextMenu}
+						onDragStop={this.handleEnableContextMenu}
+						onResizeStart={this.handleDisableContextMenu}
+						onResizeStop={this.handleEnableContextMenu}
 						breakpoints={{lg: 1000, sm: 0}}
 						measureBeforeMount
 						rowHeight={120}
