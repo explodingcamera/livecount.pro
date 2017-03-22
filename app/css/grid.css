@@ -1,0 +1,80 @@
+.icon {
+	font-size: 1em;
+	height: 10px;
+	top: 0.2em;
+  padding-right: .18em;
+	position: relative;
+}
+
+.gridItem {
+  overflow: hidden;
+  height: 100%;
+  background: rgba(253, 253, 253, 0.9);
+  padding: 12px;
+  box-sizing: border-box;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  display: flex;
+  height: 100%;
+}
+
+.gridItem img {
+	height: 5em;
+	width: 5em;
+	margin-bottom: 1em;
+	box-shadow: 0 4px 5px 0 rgba(0,0,0,.14), 0 1px 10px 0 rgba(0,0,0,.12), 0 2px 4px -1px rgba(0,0,0,.2);
+	pointer-events: none;
+}
+
+.link {
+	max-width: 100%;
+	padding: 5px;
+	overflow: hidden;
+	text-decoration: none;
+	color: black;
+}
+
+.gridItem h1 {
+	text-align: center;
+	width: 100%;
+	overflow-wrap: break-word;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  margin: 0;
+  font-size: 1.8em;
+}
+
+.slider:hover {
+  opacity: 1;
+}
+
+.slider {
+  position: absolute;
+  left: 0;
+  bottom: 0px;
+  width: 95px;
+  opacity: 0.3;
+	transition: opacity ease .5s
+}
+
+:global(.react-grid-item) {
+  box-shadow: 0 4px 5px 0 rgba(0, 0, 0, .14), 0 1px 10px 0 rgba(0, 0, 0, .12), 0 2px 4px -1px rgba(0, 0, 0, .2);
+}
+
+:global(.react-draggable-dragging) {
+
+}
+
+:global(.react-grid-placeholder) {
+  filter: blur(12px);
+  background: linear-gradient(270deg,rgba(0, 9, 14, 0.54),rgba(0, 49, 80, 0.62))!important;
+}
+
+:global(.react-grid-layout) {
+  min-height: calc(100vh - 64px)
+}
+
+:global(.react-contextmenu-wrapper) {
+  height: 100%;
+}

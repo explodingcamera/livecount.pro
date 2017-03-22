@@ -1,0 +1,13 @@
+language: node_js
+node_js:
+  - "7"
+sudo: required
+services:
+  - docker
+after_success:
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then
+    npm run build;
+    docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+    docker build -t $DOCKER_USERNAME/$DOCKER_REPO .;
+    docker push $DOCKER_USERNAME/$DOCKER_REPO:latest;
+    fi

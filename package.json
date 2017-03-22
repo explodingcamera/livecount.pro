@@ -1,0 +1,110 @@
+{
+  "name": "livecount.pro",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "eslint --format=node_modules/eslint-formatter-pretty app",
+    "build": "cross-env NODE_ENV=production webpack",
+    "dev": "webpack-dev-server"
+  },
+  "author": "Henry Gressmann",
+  "license": "MIT",
+  "dependencies": {
+    "apicache": "^0.8.4",
+    "babel": "^6.23.0",
+    "babel-cli": "^6.23.0",
+    "babel-core": "^6.23.1",
+    "babel-eslint": "^7.1.1",
+    "babel-loader": "^7.0.0-alpha.3",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-preset-env": "^1.2.1",
+    "babel-preset-react": "^6.23.0",
+    "babel-preset-stage-0": "^6.22.0",
+    "babel-register": "^6.24.0",
+    "bundle-loader": "^0.5.5",
+    "cheerio": "^0.22.0",
+    "cross-env": "^3.2.3",
+    "css-loader": "^0.27.1",
+    "cssnano": "^3.10.0",
+    "eslint": "^3.17.1",
+    "eslint-config-xo-react": "^0.10.0",
+    "eslint-import-resolver-webpack": "^0.8.1",
+    "eslint-plugin-react": "^6.10.0",
+    "express": "^4.15.2",
+    "extract-text-webpack-plugin": "^2.1.0",
+    "flexboxgrid": "^6.3.1",
+    "html-webpack-harddisk-plugin": "^0.1.0",
+    "html-webpack-plugin": "^2.28.0",
+    "mobx": "^3.1.5",
+    "mobx-persist": "^0.3.1",
+    "mobx-react": "^4.1.3",
+    "node-sass": "^4.5.0",
+    "odometer": "^0.4.8",
+    "postcss-cssnext": "^2.9.0",
+    "postcss-loader": "^1.3.3",
+    "react": "^15.4.2",
+    "react-contextmenu": "^2.3.1",
+    "react-dom": "^15.4.2",
+    "react-flexbox-grid": "^0.10.2",
+    "react-grid-layout": "^0.14.4",
+    "react-router-dom": "^4.0.0",
+    "react-tap-event-plugin": "^2.0.1",
+    "react-toolbox": "^2.0.0-beta.7",
+    "request-promise-native": "^1.0.3",
+    "socicon": "^3.0.5",
+    "style-loader": "^0.14.0",
+    "webpack": "^2.2.1",
+    "webpack-dev-server": "^2.4.1",
+    "webpack-manifest-plugin": "^1.1.0",
+    "webpack-subresource-integrity": "^0.9.0",
+    "whatwg-fetch": "^2.0.3",
+    "xo": "^0.17.1"
+  },
+  "babel": {
+    "presets": [
+      [
+        "env",
+        {
+          "targets": {
+            "chrome": 56,
+            "firefox": 45,
+            "edge": 14
+          }
+        }
+      ],
+      "react",
+      "stage-0"
+    ],
+    "plugins": [
+      "transform-decorators-legacy"
+    ]
+  },
+  "eslintConfig": {
+    "settings": {
+      "import/resolver": {
+        "webpack": {
+          "config": "webpack.config.babel.js"
+        }
+      }
+    },
+    "extends": [
+      "xo/esnext",
+      "xo/browser",
+      "xo-react"
+    ],
+    "rules": {
+      "react/forbid-component-props": [
+        0
+      ]
+    },
+    "env": {
+      "browser": true,
+      "node": true
+    },
+    "parser": "babel-eslint"
+  },
+  "devDependencies": {
+    "file-loader": "^0.10.1"
+  }
+}

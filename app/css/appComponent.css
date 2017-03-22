@@ -1,0 +1,31 @@
+.main {
+  min-height: 100vh;
+}
+
+.appBar {
+  box-shadow: 0 4px 5px 0 rgba(0, 0, 0, .14), 0 1px 10px 0 rgba(0, 0, 0, .12), 0 2px 4px -1px rgba(0, 0, 0, .2);
+  background: linear-gradient(to left, #005C97 , #363795);
+  color: white;
+  display: flex;
+  align-items: center;
+  width: calc(100% - 40px);
+  padding: 0 20px 0 20px;
+  height: 64px;
+}
+
+.appBar h1 {
+  flex-grow: 1;
+  font-size: 20px;
+  font-family: monospace;
+  font-weight: 100;
+  display: inline-flex;
+  margin: 0;
+}
+
+:global(.react-grid-layout) {
+  max-width: 100%;
+}
+
+.addItemMenu button {
+  color: white !important;
+}
