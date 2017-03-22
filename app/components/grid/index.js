@@ -26,23 +26,14 @@ const GridLayout = widthProvider(ResponsiveGridLayout);
 
 		}
 	}
-	dragAmount = 0;
-	dragTimeout;
-	handleDisableContextMenu = () => {
-		this.dragAmount += 1;
-		console.log(this.dragAmount);
-		if (this.dragAmount > 3) {
-			clearTimeout(this.dragTimeout);
-			this.dragTimeout = setTimeout(() => {
-				this.props.uiStore.disableContextMenu = false;
-			}, 1000);
-			this.props.uiStore.disableContextMenu = true;
-		}
-	}
-	handleEnableContextMenu = () => {
-		this.props.uiStore.disableContextMenu = false;
-		this.dragAmount = 0;
-	}
+
+	// handleDisableContextMenu = () => {
+	// 	this.props.uiStore.disableContextMenu = true;
+	// }
+	// handleEnableContextMenu = () => {
+	// 	this.props.uiStore.disableContextMenu = false;
+	// 	this.dragAmount = 0;
+	// }
 	render() {
 		const {gridStore, uiStore} = this.props;
 		const cols = {lg: 6, sm: 4};
@@ -51,7 +42,7 @@ const GridLayout = widthProvider(ResponsiveGridLayout);
 			<ContextMenuTrigger
 				className={css.main}
 				id="grid"
-				holdToDisplay={1000}
+				holdToDisplay={2000}
 				collect={this.onCollect}
 				onItemClick={this.handleItemClick}
 				disable={uiStore.disableContextMenu}
@@ -59,10 +50,6 @@ const GridLayout = widthProvider(ResponsiveGridLayout);
 				<DynamicGridMenu id="grid"/>
 				{gridStore.enableGrid && (
 					<GridLayout
-						onDrag={this.handleDisableContextMenu}
-						onResizeStart={this.handleDisableContextMenu}
-						onDragStop={this.handleEnableContextMenu}
-						onResizeStop={this.handleEnableContextMenu}
 						breakpoints={{lg: 1000, sm: 0}}
 						measureBeforeMount
 						rowHeight={120}
@@ -70,7 +57,8 @@ const GridLayout = widthProvider(ResponsiveGridLayout);
 						onLayoutChange={gridStore.onLayoutChange} // eslint-disable-line react/jsx-handler-names
 						layouts={gridStore.layouts}
 						cols={cols}
-						draggableCancel={'nonDraggable'}
+						draggableCancel={'.nonDraggable'}
+						draggableHandle={'.draggable'}
 						verticalCompact={false}
 						>
 						{gridStore.items.map(item => {

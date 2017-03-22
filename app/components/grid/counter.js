@@ -37,9 +37,13 @@ import css from 'css/grid.css';
 		this.counter = ref;
 	}
 	render() {
+		const mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 		const {item} = this.props;
 		return (
-			<div className={`${css.gridItem} ${this.props.className}`} style={{fontSize: `${item.fontSize}%`}}>
+			<div className={`${mobile ? '' : 'draggable'} ${css.gridItem} ${this.props.className || ''}`} style={{fontSize: `${item.fontSize}%`}}>
+				{mobile && (
+					<i className={`material-icons ${css.dragIcon} draggable`}>drag_handle</i>
+				)}
 				{item.options.enablePicture && (
 					<img src={item.profileImage}/>
 				)}

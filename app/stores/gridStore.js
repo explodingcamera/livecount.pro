@@ -167,7 +167,7 @@ class GridStore {
 			opts.profileImage = logo;
 			opts.url = `https://twitch.tv/${name}`;
 		} else if (opts.type.indexOf('twitter') === 0) {
-			opts.profileImage = `https://twitter.com/${opts.username}/profile_image?size=original`;
+			opts.profileImage = `https://images.weserv.nl/?url=twitter.com/${opts.username}/profile_image?size=original`;
 			opts.url = `https://twitter.com/@${opts.username}`;
 		}
 

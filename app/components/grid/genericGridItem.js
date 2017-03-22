@@ -46,6 +46,7 @@ const apiBase = process.env.NODE_ENV === 'production' ? 'https://explodingcamera
 
 	updateCounter = async () => {
 		const {item} = this.props;
+
 		try {
 			if (this.disabled) {
 				return;
