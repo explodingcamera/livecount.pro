@@ -1,18 +1,20 @@
 import {observable, action} from 'mobx';
 
 class UiStore {
-	@observable username = '';
-	@observable selectedInput = 'yt-subs';
+	@observable options = {
+		username: '',
+		enablePicture: true,
+		selectedInput: 'yt-subs'
+	}
 	@observable dialogActive = false;
+	@observable disableContextMenu = false;
 
 	@action handleToggleDialog = () => {
 		this.dialogActive = !this.dialogActive;
+		this.username = '';
 	}
-	@action handleUsernameChange = val => {
-		this.username = val;
-	}
-	@action handleTypeUpdate = val => {
-		this.selectedInput = val;
+	@action handleValueChange = (value, event) => {
+		this.options[event.target.name] = value;
 	}
 }
 

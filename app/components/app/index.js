@@ -10,7 +10,7 @@ import css from 'css/appComponent.css';
 		return (
 			<div className={css.main}>
 				<div className={css.appBar}>
-					<h1>livecount.pro</h1>
+					<h1>livecount.pro beta</h1>
 					<Ripple>
 						<i onClick={uiStore.handleToggleDialog} className={'material-icons'}>{'add'}</i>
 					</Ripple>

@@ -7,9 +7,9 @@ class GridItem {
 	@persist @observable fontSize = 40;
 	@persist @observable id;
 	@persist @observable type = 'yt-sub';
-	@persist @observable username = 'explodingcamera';
-	@persist @observable userId = 'UCa4eP6DwyjnrwV01Tk1uLYA';
-	@persist @observable url = 'https://youtube.com/explodingkamera';
+	@persist @observable username = '';
+	@persist @observable userId = '';
+	@persist @observable url = '';
 	@persist @observable number = 0;
 	@persist @observable icon = 'socicon-youtube';
 	@persist @observable profileImage;
@@ -58,6 +58,7 @@ class GridStore {
 		}, 100);
 	}
 
+	@observable disableContextMenu = false;
 	bodyWidth = document.body.clientWidth;
 	checkWidthChange() {
 		const newWidth = document.body.clientWidth;
@@ -135,6 +136,11 @@ class GridStore {
 
 	@action addGridItem = async opts => {
 		opts.id = this.selectedGrid.index += 1;
+
+		opts.username.replace(/https:\/\/|http:\/\|youtube.com|m.youtube.com|http:\/\|twitter.com|http:\/\|twitch.tv|\/c\/|\/user\/|\/channel\//g, '');
+		if (!opts.username) {
+			opts.username = 'saschavona';
+		}
 
 		const {items} = this;
 
