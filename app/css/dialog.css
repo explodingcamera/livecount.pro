@@ -1,3 +1,13 @@
 .dialog section {
   padding-bottom: 0;
 }
+.searchWrapper {
+	display: flex;
+	align-items: center;
+}
+.searchWrapper div {
+  flex-grow: 1;
+}
+.searchDropdown > div > div {
+	padding-top: 0;
+}

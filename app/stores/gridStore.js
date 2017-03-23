@@ -53,17 +53,21 @@ class GridStore {
 			}
 			return errorBackup(...args);
 		};
-		setInterval(() => {
-			this.checkWidthChange();
-		}, 100);
+
+		document.addEventListener('DOMContentLoaded', () => {
+			this.appWidth = document.querySelector('#app > div').clientWidth;
+			setInterval(() => {
+				this.checkWidthChange();
+			}, 100);
+		});
 	}
 
 	@observable disableContextMenu = false;
-	bodyWidth = document.body.clientWidth;
+	appWidth;
 	checkWidthChange() {
-		const newWidth = document.body.clientWidth;
-		if (this.bodyWidth !== newWidth) {
-			this.bodyWidth = newWidth;
+		const newWidth = document.querySelector('#app > div').clientWidth;
+		if (this.appWidth !== newWidth) {
+			this.appWidth = newWidth;
 			window.dispatchEvent(new Event('resize'));
 		}
 	}
@@ -145,8 +149,8 @@ class GridStore {
 		const {items} = this;
 
 		if (opts.type.indexOf('yt') === 0) {
-			if (opts.username.indexOf('UC') === 0 && opts.username.length === 24) {
-				opts.userId = opts.username;
+			if (opts.userId || (opts.username.indexOf('UC') === 0 && opts.username.length === 24)) {
+				opts.userId = opts.username || opts.userId;
 				const request = await fetch(`${apiBase}/youtube/channel/channelid/${opts.userId}`, {method: 'get'});
 				const {title, thumbnails} = await request.json();
 				opts.username = title;

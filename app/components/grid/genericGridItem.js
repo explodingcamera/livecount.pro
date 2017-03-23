@@ -2,8 +2,7 @@ import React from 'react';
 import {observer} from 'mobx-react';
 
 import Counter from './counter';
-
-const apiBase = process.env.NODE_ENV === 'production' ? 'https://explodingcamera.xyz/api/v1' : 'http://localhost:3000/api/v1';
+import {apiBase} from './../../constants';
 
 @observer class GridItem extends React.Component {
 	componentWillMount() {
