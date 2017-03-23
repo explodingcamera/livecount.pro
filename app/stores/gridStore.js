@@ -150,7 +150,7 @@ class GridStore {
 
 		if (opts.type.indexOf('yt') === 0) {
 			if (opts.userId || (opts.username.indexOf('UC') === 0 && opts.username.length === 24)) {
-				opts.userId = opts.username || opts.userId;
+				opts.userId = opts.userId || opts.username;
 				const request = await fetch(`${apiBase}/youtube/channel/channelid/${opts.userId}`, {method: 'get'});
 				const {title, thumbnails} = await request.json();
 				opts.username = title;

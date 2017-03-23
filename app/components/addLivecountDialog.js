@@ -11,7 +11,8 @@ import {apiBase} from './../constants';
 
 @inject('uiStore') @inject('gridStore') @observer class App extends React.Component {
 	handleAddGridItem = () => {
-		this.props.gridStore.addGridItem({type: this.props.uiStore.options.selectedInput, username: this.props.uiStore.options.username || this.props.uiStore.options.userId});
+		console.log(1);
+		this.props.gridStore.addGridItem({type: this.props.uiStore.options.selectedInput, username: this.props.uiStore.options.username, userId: this.props.uiStore.options.userId});
 		this.props.uiStore.handleToggleDialog();
 	}
 	handleSearch = async () => {
@@ -74,11 +75,17 @@ import {apiBase} from './../constants';
 		];
 		let form;
 
+		const searchButtonDisabled = (
+			uiStore.options.username === '' ||
+			/https:\/\/|http:\/\|youtube.com|m.youtube.com|\/c\/|\/user\/|\/channel\//g.test(uiStore.options.username) ||
+			(uiStore.options.username.indexOf('UC') === 0 && uiStore.options.username.length === 24)
+		);
+
 		const YouTubeUserSearch = (
 			<div>
 				<div className={css.searchWrapper}>
-					<Input type="text" label="Username / ChannelId / URL" name="username" value={uiStore.options.username} onChange={uiStore.handleValueChange} onSubmit={this.handleAddGridItem}/>
-					<Button label={'Search'} onClick={this.handleSearch} disabled={uiStore.options.username === ''} flat/>
+					<Input type="text" label="Username / ChannelId / URL" name="username" value={uiStore.options.username} onChange={uiStore.handleValueChange} onSubmit={searchButtonDisabled ? undefined : this.handleSearch}/>
+					<Button label={'Search'} onClick={this.handleSearch} disabled={searchButtonDisabled} flat/>
 				</div>
 				{uiStore.searchResults ? (
 					<div className={css.searchDropdown}>
