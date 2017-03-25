@@ -3,6 +3,8 @@ import React from 'react';
 import {observer, inject} from 'mobx-react';
 import {ContextMenuTrigger} from 'react-contextmenu/es6';
 
+import removeConsoleError from 'util/removeConsoleError';
+
 import DynamicGridMenu from 'components/dynamicGridMenu';
 import css from 'css/grid.css';
 import GenericGridItem from './genericGridItem';
@@ -10,7 +12,13 @@ import GenericGridItem from './genericGridItem';
 const GridLayout = widthProvider(ResponsiveGridLayout);
 
 @inject('uiStore') @inject('gridStore') @observer class App extends React.Component {
+	constructor() {
+		super();
+		removeConsoleError('Failed prop type: layouts');
+	}
+
 	onCollect = props => props;
+
 	handleItemClick = (...args) => {
 		const opts = args[1];
 		switch (opts.action) {
@@ -30,9 +38,11 @@ const GridLayout = widthProvider(ResponsiveGridLayout);
 	handleDisableContextMenu = () => {
 		this.props.uiStore.disableContextMenu = true;
 	}
+
 	handleEnableContextMenu = () => {
 		this.props.uiStore.disableContextMenu = false;
 	}
+
 	render() {
 		const {gridStore, uiStore} = this.props;
 		const cols = {lg: 6, sm: 4};
@@ -57,7 +67,7 @@ const GridLayout = widthProvider(ResponsiveGridLayout);
 					measureBeforeMount
 					rowHeight={120}
 					className={css.layout}
-					onLayoutChange={gridStore.onLayoutChange} // eslint-disable-line react/jsx-handler-names
+					onLayoutChange={gridStore.handleLayoutChange} // eslint-disable-line react/jsx-handler-names
 					layouts={gridStore.layouts}
 					cols={cols}
 					draggableCancel={'.nonDraggable'}
@@ -74,6 +84,7 @@ const GridLayout = widthProvider(ResponsiveGridLayout);
 								GridItem = <GenericGridItem item={item}/>;
 							}
 						}
+						console.log(item.id);
 						return (
 							<div key={item.id}>
 								<ContextMenuTrigger
@@ -92,9 +103,8 @@ const GridLayout = widthProvider(ResponsiveGridLayout);
 						);
 					})}
 				</GridLayout>
-					)}
+				)}
 			</ContextMenuTrigger>
-
 		);
 	}
 }

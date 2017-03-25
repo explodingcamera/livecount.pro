@@ -7,8 +7,9 @@ import {apiBase} from './../../constants';
 @observer class GridItem extends React.Component {
 	componentWillMount() {
 		const {item} = this.props;
+
 		switch (item.type) {
-			case 'yt-sub': {
+			case 'yt-subs': {
 				item.icon = 'socicon-youtube';
 				item.api = `${apiBase}/youtube/subscribers/${item.userId}`;
 				item.options.time = item.options.time || 2000;
@@ -30,6 +31,12 @@ import {apiBase} from './../../constants';
 				item.icon = 'socicon-twitch';
 				item.api = `${apiBase}/twitch/followers/${item.userId}`;
 				item.options.time = item.options.time || 3000;
+				break;
+			}
+			case 'instagram-followers': {
+				item.icon = 'socicon-instagram';
+				item.api = `${apiBase}/instagram/followers/${item.userId}`;
+				item.options.time = item.options.time || 2000;
 				break;
 			}
 			default: {

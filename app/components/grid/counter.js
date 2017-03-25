@@ -70,7 +70,7 @@ import css from 'css/grid.css';
 					ref={this.setCounterRef}
 					/>
 				{item.options.enableSlider && (
-				<Slider min={mobile ? 30 : 60} max={mobile ? 170 : 400} className={css.slider} value={item.fontSize} onChange={this.handleChangeFontSize}/>
+				<Slider min={30} max={mobile ? 170 : 400} className={css.slider} value={item.fontSize} onChange={this.handleChangeFontSize}/>
 					)}
 			</div>
 		);

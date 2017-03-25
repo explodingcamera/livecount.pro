@@ -1,9 +1,0 @@
-@import "https://fonts.googleapis.com/icon?family=Material+Icons";
-
-body {
-  user-select: none;
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden !important;
-  background: linear-gradient(to left, #f3f3f3 , #dadada) !important;
-}

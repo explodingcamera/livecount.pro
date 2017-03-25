@@ -10,9 +10,15 @@ import css from 'css/dialog.css';
 import {apiBase} from './../constants';
 
 @inject('uiStore') @inject('gridStore') @observer class App extends React.Component {
-	handleAddGridItem = () => {
-		console.log(1);
-		this.props.gridStore.addGridItem({type: this.props.uiStore.options.selectedInput, username: this.props.uiStore.options.username, userId: this.props.uiStore.options.userId});
+	handleAddGridItem = async () => {
+		await this.props.gridStore.addGridItem({
+			type: this.props.uiStore.options.selectedInput,
+			username: this.props.uiStore.options.username,
+			userId: this.props.uiStore.options.userId,
+			options: {
+				enablePicture: this.props.uiStore.options.enablePicture
+			}
+		});
 		this.props.uiStore.handleToggleDialog();
 	}
 	handleSearch = async () => {
@@ -71,7 +77,8 @@ import {apiBase} from './../constants';
       {value: 'yt-subs', label: 'Youtube Subscribers'},
       {value: 'yt-views', label: 'YouTube Views'},
       {value: 'twitter-followers', label: 'Twitter Followers'},
-      {value: 'twitch-followers', label: 'Twitch Followers'}
+      {value: 'twitch-followers', label: 'Twitch Followers'},
+			{value: 'instagram-followers', label: 'Instagram Followers'}
 		];
 		let form;
 
