@@ -66,9 +66,9 @@ export default class GridItem {
 			opts.profileImage = `https://images.weserv.nl/?url=twitter.com/${opts.username}/profile_image?size=original`;
 			opts.url = `https://twitter.com/@${opts.username}`;
 		} else if (opts.type.indexOf('instagram') === 0) {
+			opts.userId = opts.username;
 			const request = await fetch(`${apiBase}/instagram/user/${opts.username}`, {method: 'get'});
 			const {username, image} = await request.json();
-			opts.userId = username;
 			opts.username = username;
 			opts.profileImage = image;
 			opts.url = `https://instagram.com/${opts.username}`;
