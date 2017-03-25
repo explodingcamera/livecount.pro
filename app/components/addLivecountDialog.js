@@ -153,7 +153,7 @@ import {apiBase} from './../constants';
 }
 
 App.propTypes = {
-	gridStore: React.PropTypes.object,
+	gridStore: React.PropTypes.object, // eslint-disable-line react/no-unused-prop-types
 	uiStore: React.PropTypes.object
 };
 
