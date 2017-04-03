@@ -23,7 +23,11 @@ const GridLayout = widthProvider(ResponsiveGridLayout);
 		const opts = args[1];
 		switch (opts.action) {
 			case 'REMOVE_ITEM': {
-				this.props.gridStore.removeGridItem(opts.itemId);
+				this.props.gridStore.removeGridItem(opts.item.id);
+				break;
+			}
+			case 'EDIT_ITEM': {
+				this.props.uiStore.handleToggleEditDialog(opts.item);
 				break;
 			}
 			case 'ADD_ITEM': {
@@ -84,7 +88,6 @@ const GridLayout = widthProvider(ResponsiveGridLayout);
 								GridItem = <GenericGridItem item={item}/>;
 							}
 						}
-						console.log(item.id);
 						return (
 							<div key={item.id}>
 								<ContextMenuTrigger
@@ -93,7 +96,7 @@ const GridLayout = widthProvider(ResponsiveGridLayout);
 									holdToDisplay={mobile ? 1000 : -1}
 									collect={this.onCollect}
 									onItemClick={this.handleItemClick}
-									itemId={item.id}
+									item={item}
 									gridItem
 									disable={uiStore.disableContextMenu}
 									>

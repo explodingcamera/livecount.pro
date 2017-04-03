@@ -8,10 +8,6 @@ import Link from 'components/ripple';
 import css from 'css/grid.css';
 
 @observer class GridItem extends React.Component {
-	handleChangeFontSize = val => {
-		this.props.item.fontSize = val;
-	}
-
 	componentDidMount() {
 		this.odometer = new Odometer({
 			el: this.counter,
@@ -55,11 +51,9 @@ import css from 'css/grid.css';
 					rel="noopener noreferrer"
 					>
 					<h1>
-						{item.type === 'yt-views' ? (
-							<i className={`material-icons ${css.icon}`}>remove_red_eye</i>
-						) : (
-							<span className={`${item.icon} ${css.icon}`}/>
-						)}
+						<span className={css.icon}>
+							{item.icon}
+						</span>
 						{item.username}
 					</h1>
 				</Link>
@@ -70,7 +64,7 @@ import css from 'css/grid.css';
 					ref={this.setCounterRef}
 					/>
 				{item.options.enableSlider && (
-				<Slider min={30} max={mobile ? 170 : 400} className={css.slider} value={item.fontSize} onChange={this.handleChangeFontSize}/>
+				<Slider min={30} max={mobile ? 170 : 400} className={css.slider} value={item.fontSize} onChange={this.props.item.handleChangeFontSize}/>
 					)}
 			</div>
 		);

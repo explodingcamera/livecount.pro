@@ -1,9 +1,13 @@
 .icon {
-	font-size: 1em;
+	font-size: 1em !important;
 	height: 10px;
 	top: 0.2em;
   padding-right: .18em;
 	position: relative;
+}
+
+.icon i {
+	font-size: 1em;
 }
 
 .dragIcon {

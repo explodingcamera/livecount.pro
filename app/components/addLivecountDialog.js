@@ -6,23 +6,24 @@ import Input from 'react-toolbox/lib/input';
 import Switch from 'react-toolbox/lib/switch';
 import Button from 'react-toolbox/lib/button';
 
+import customDopdownItem from './customDropdownItem';
 import css from 'css/dialog.css';
 import {apiBase} from './../constants';
 
 @inject('uiStore') @inject('gridStore') @observer class App extends React.Component {
 	handleAddGridItem = async () => {
-		await this.props.gridStore.addGridItem({
-			type: this.props.uiStore.options.selectedInput,
-			username: this.props.uiStore.options.username,
-			userId: this.props.uiStore.options.userId,
-			options: {
-				enablePicture: this.props.uiStore.options.enablePicture
-			}
-		});
+		const item = this.props.uiStore.item;
+
+		if (item.id) {
+			await this.props.gridStore.editGridItem(this.props.uiStore.item);
+		}	else {
+			await this.props.gridStore.addGridItem(this.props.uiStore.item);
+		}
+
 		this.props.uiStore.handleToggleDialog();
 	}
 	handleSearch = async () => {
-		const url = `${apiBase}/youtube/search/user/${this.props.uiStore.options.username}`;
+		const url = `${apiBase}/youtube/search/user/${this.props.uiStore.item.username}`;
 		const response = await fetch(url, {method: 'get'});
 		const data = await response.json();
 		const dropdown = data.map(channel => {
@@ -33,45 +34,15 @@ import {apiBase} from './../constants';
 			};
 		});
 
-		this.props.uiStore.options.userId = dropdown[0].value;
+		this.props.uiStore.item.userId = dropdown[0].value;
 		this.props.uiStore.searchResults = dropdown;
-	}
-
-	customDopdownItem(item) {
-		const containerStyle = {
-			display: 'flex',
-			flexDirection: 'row',
-			alignItems: 'center'
-		};
-
-		const imageStyle = {
-			display: 'flex',
-			width: '32px',
-			height: '32px',
-			flexGrow: 0,
-			marginRight: '8px',
-			backgroundColor: '#ccc'
-		};
-
-		const contentStyle = {
-			display: 'flex',
-			flexDirection: 'column',
-			flexGrow: 2
-		};
-
-		return (
-			<div style={containerStyle}>
-				<img src={item.img} style={imageStyle}/>
-				<span style={contentStyle}>{item.label}</span>
-			</div>
-		);
 	}
 
 	render() {
 		const {uiStore} = this.props;
 		const actions = [
       {label: 'Cancel', onClick: uiStore.handleToggleDialog},
-			{label: 'Add', onClick: this.handleAddGridItem}
+			{label: this.props.uiStore.item.id ? 'Edit' : 'Add', onClick: this.handleAddGridItem}
 		];
 		const dropdownType = [
       {value: 'yt-subs', label: 'Youtube Subscribers'},
@@ -83,15 +54,15 @@ import {apiBase} from './../constants';
 		let form;
 
 		const searchButtonDisabled = (
-			uiStore.options.username === '' ||
-			/https:\/\/|http:\/\|youtube.com|m.youtube.com|\/c\/|\/user\/|\/channel\//g.test(uiStore.options.username) ||
-			(uiStore.options.username.indexOf('UC') === 0 && uiStore.options.username.length === 24)
+			uiStore.item.username === undefined || uiStore.item.username === '' ||
+			/https:\/\/|http:\/\|youtube.com|m.youtube.com|\/c\/|\/user\/|\/channel\//g.test(uiStore.item.username) ||
+			(uiStore.item.username.indexOf('UC') === 0 && uiStore.item.username.length === 24)
 		);
 
 		const YouTubeUserSearch = (
 			<div>
 				<div className={css.searchWrapper}>
-					<Input type="text" label="Username / ChannelId / URL" name="username" value={uiStore.options.username} onChange={uiStore.handleValueChange} onSubmit={searchButtonDisabled ? undefined : this.handleSearch}/>
+					<Input type="text" label="Username / ChannelId / URL" name="username" value={uiStore.item.username || ''} onChange={uiStore.handleValueChange} onSubmit={searchButtonDisabled ? undefined : this.handleSearch}/>
 					<Button label={'Search'} onClick={this.handleSearch} disabled={searchButtonDisabled} flat/>
 				</div>
 				{uiStore.searchResults ? (
@@ -100,8 +71,8 @@ import {apiBase} from './../constants';
 							auto={false}
 							source={uiStore.searchResults.peek()}
 							onChange={uiStore.handleValueChange}
-							value={uiStore.options.userId}
-							template={this.customDopdownItem}
+							value={uiStore.item.userId}
+							template={customDopdownItem}
 							name={'userId'}
 							/>
 					</div>
@@ -111,12 +82,12 @@ import {apiBase} from './../constants';
 			</div>
 		);
 
-		switch (uiStore.options.selectedInput) {
+		switch (uiStore.item.selectedInput) {
 			case 'yt-subs': {
 				form = (
 					<div>
 						{YouTubeUserSearch}
-						<Switch name="enablePicture" label="Display profile picture" checked={uiStore.options.enablePicture} onChange={uiStore.handleValueChange}/>
+						<Switch name="options.enablePicture" label="Display profile picture" checked={uiStore.item.options.enablePicture} onChange={uiStore.handleValueChange}/>
 					</div>
 				);
 				break;
@@ -124,8 +95,8 @@ import {apiBase} from './../constants';
 			default: {
 				form = (
 					<div>
-						<Input type="text" label="Username / URL" name="username" value={uiStore.options.username} onChange={uiStore.handleValueChange} onSubmit={this.handleAddGridItem}/>
-						<Switch name="enablePicture" label="Display profile picture" checked={uiStore.options.enablePicture} onChange={uiStore.handleValueChange}/>
+						<Input type="text" label="Username / URL" name="username" value={uiStore.item.username || ''} onChange={uiStore.handleValueChange} onSubmit={this.handleAddGridItem}/>
+						<Switch name="options.enablePicture" label="Display profile picture" checked={uiStore.item.options.enablePicture} onChange={uiStore.handleValueChange}/>
 					</div>
 				);
 			}
@@ -137,14 +108,14 @@ import {apiBase} from './../constants';
 				active={uiStore.dialogActive}
 				onEscKeyDown={uiStore.handleToggleDialog}
 				onOverlayClick={uiStore.handleToggleDialog}
-				title="Add Livecounter"
+				title={`${this.props.uiStore.item.id ? 'Edit' : 'Add'} Livecounter`}
 				>
 				<Dropdown
 					auto
 					onChange={uiStore.handleValueChange}
 					source={dropdownType}
-					value={uiStore.options.selectedInput}
-					name={'selectedInput'}
+					value={uiStore.item.type}
+					name={'type'}
 					/>
 				{form}
 			</Dialog>

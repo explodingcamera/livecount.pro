@@ -1,6 +1,6 @@
 export default function () {
 	let appHeight;
-	const checkWidthChange = () => {
+	const checkHeightChange = () => {
 		const newHeight = document.querySelector('#app > div').clientHeight;
 		if (appHeight !== newHeight) {
 			appHeight = newHeight;
@@ -11,7 +11,7 @@ export default function () {
 	document.addEventListener('DOMContentLoaded', () => {
 		appHeight = document.querySelector('#app > div').clientHeight;
 		setInterval(() => {
-			checkWidthChange();
-		}, 100);
+			checkHeightChange();
+		}, 200);
 	});
 }

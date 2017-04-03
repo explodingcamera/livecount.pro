@@ -1,26 +1,49 @@
 import {observable, action} from 'mobx';
 
-const defaultOptions = {
+const defaultItem = {
+	type: 'yt-subs',
 	userId: null,
 	username: '',
-	enablePicture: true,
-	selectedInput: 'yt-subs'
+	options: {
+		enablePicture: true
+	}
 };
 
 class UiStore {
-	@observable options = defaultOptions;
+	@observable item = defaultItem;
 	@observable dialogActive = false;
 	@observable disableContextMenu = false;
 	@observable searchResults;
 
 	@action handleToggleDialog = () => {
 		this.dialogActive = !this.dialogActive;
-		this.options = defaultOptions;
+		this.item = defaultItem;
+		this.searchResults = null;
+	}
+
+	@action handleToggleEditDialog = opts => {
+		this.dialogActive = !this.dialogActive;
+		this.item = {
+			...defaultItem,
+			options: {
+				...defaultItem.options,
+				...opts.options
+			},
+			id: opts.id,
+			username: opts.username,
+			type: opts.type
+		};
+
 		this.searchResults = null;
 	}
 
 	@action handleValueChange = (value, event) => {
-		this.options[event.target.name] = value;
+		const names = event.target.name.split('.');
+		if (names.length === 2) {
+			this.item[names[0]][names[1]] = value;
+		} else {
+			this.item[event.target.name] = value;
+		}
 	}
 }
 

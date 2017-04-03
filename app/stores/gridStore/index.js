@@ -83,6 +83,25 @@ class GridStore {
 		return;
 	}
 
+	@action editGridItem = async opts => {
+		console.log('editiong ', opts);
+		const lookup = this.items.map(item => item.id);
+		const itemIndex = lookup.indexOf(opts.id);
+
+		const newItem = new GridItem();
+		await newItem.init(opts);
+
+		if (itemIndex === -1) {
+			return new Error('No item with the supplied id exists.');
+		}
+
+		this.enableGrid = false;
+		this.items[itemIndex] = newItem;
+		setTimeout(() => {
+			this.enableGrid = true;
+		}, 0);
+	}
+
 	@action removeGridItem = id => {
 		// Search for the position of the item
 		const lookup = this.items.map(item => item.id);

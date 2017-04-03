@@ -10,6 +10,7 @@ const DynamicMenu = props => {
 		items.push(<MenuItem onClick={handleItemClick} data={{action: 'ADD_ITEM'}}>{`Add new livecount`}</MenuItem>);
 		if (trigger.gridItem) {
 			items.push(<MenuItem onClick={handleItemClick} data={{action: 'REMOVE_ITEM'}}>{`Remove`}</MenuItem>);
+			items.push(<MenuItem onClick={handleItemClick} data={{action: 'EDIT_ITEM'}}>{`Edit`}</MenuItem>);
 		}
 		items.push(<MenuItem onClick={handleItemClick}>{`Cancel`}</MenuItem>);
 	}
@@ -25,7 +26,7 @@ const DynamicMenu = props => {
 DynamicMenu.propTypes = {
 	id: PropTypes.string.isRequired,
 	trigger: PropTypes.shape({
-		itemId: PropTypes.number,
+		item: PropTypes.object,
 		gridItem: PropTypes.func.bool
 	})
 };
