@@ -5,6 +5,7 @@ import HtmlWebpackHarddiskPlugin from 'html-webpack-harddisk-plugin';
 import path from 'path';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import ManifestPlugin from 'webpack-manifest-plugin';
+import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
 import pkg from './package.json';
 
 const prod = process.env.NODE_ENV === 'production';
@@ -34,7 +35,7 @@ if (prod) {
 				NODE_ENV: JSON.stringify('production')
 			}
 		}),
-		new webpack.optimize.UglifyJsPlugin(),
+		new UglifyJsPlugin(),
 		new ExtractTextPlugin({filename: '[name].[hash].css', allChunks: true}),
 		new SriPlugin({
 			hashFuncNames: ['sha256', 'sha384', 'sha512'],

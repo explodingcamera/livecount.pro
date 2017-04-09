@@ -82,7 +82,7 @@ import {apiBase} from './../constants';
 			</div>
 		);
 
-		switch (uiStore.item.selectedInput) {
+		switch (uiStore.item.options.selectedInput) {
 			case 'yt-subs': {
 				form = (
 					<div>
