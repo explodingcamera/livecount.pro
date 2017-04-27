@@ -1,7 +1,8 @@
-import {Responsive as ResponsiveGridLayout, WidthProvider as widthProvider} from 'react-grid-layout';
 import React from 'react';
+import PropTypes from 'prop-types';
 import {observer, inject} from 'mobx-react';
 import {ContextMenuTrigger} from 'react-contextmenu/es6';
+import {Responsive as ResponsiveGridLayout, WidthProvider as widthProvider} from 'react-grid-layout';
 
 import removeConsoleError from 'util/removeConsoleError';
 
@@ -34,6 +35,12 @@ const GridLayout = widthProvider(ResponsiveGridLayout);
 				this.props.uiStore.handleToggleDialog();
 				break;
 			}
+			case 'UPDATE_ITEM': {
+				opts.item.edit(opts.item).then(() => {
+					//
+				});
+				break;
+			}
 			default:
 
 		}
@@ -57,26 +64,26 @@ const GridLayout = widthProvider(ResponsiveGridLayout);
 				id="grid"
 				holdToDisplay={-1}
 				collect={this.onCollect}
-				onItemClick={this.handleItemClick}
 				disable={uiStore.disableContextMenu}
+				onItemClick={this.handleItemClick}
 				>
 				<DynamicGridMenu id="grid"/>
 				{gridStore.enableGrid && (
 				<GridLayout
+					measureBeforeMount
+					breakpoints={{lg: 1000, sm: 0}}
+					rowHeight={120}
+					verticalCompact={false}
+					cols={cols}
+					className={css.layout}
+					layouts={gridStore.layouts}
+					draggableCancel={'.nonDraggable'}
+					draggableHandle={'.draggable'}
+					onLayoutChange={gridStore.handleLayoutChange} // eslint-disable-line react/jsx-handler-names
 					onDragStart={this.handleDisableContextMenu}
 					onDragStop={this.handleEnableContextMenu}
 					onResizeStart={this.handleDisableContextMenu}
 					onResizeStop={this.handleEnableContextMenu}
-					breakpoints={{lg: 1000, sm: 0}}
-					measureBeforeMount
-					rowHeight={120}
-					className={css.layout}
-					onLayoutChange={gridStore.handleLayoutChange} // eslint-disable-line react/jsx-handler-names
-					layouts={gridStore.layouts}
-					cols={cols}
-					draggableCancel={'.nonDraggable'}
-					draggableHandle={'.draggable'}
-					verticalCompact={false}
 					>
 					{gridStore.items.map(item => {
 						let GridItem;
@@ -91,14 +98,14 @@ const GridLayout = widthProvider(ResponsiveGridLayout);
 						return (
 							<div key={item.id}>
 								<ContextMenuTrigger
+									gridItem
 									style={{height: '100%'}}
 									id="grid"
 									holdToDisplay={mobile ? 1000 : -1}
+									item={item}
+									disable={uiStore.disableContextMenu}
 									collect={this.onCollect}
 									onItemClick={this.handleItemClick}
-									item={item}
-									gridItem
-									disable={uiStore.disableContextMenu}
 									>
 									{GridItem}
 								</ContextMenuTrigger>
@@ -113,8 +120,8 @@ const GridLayout = widthProvider(ResponsiveGridLayout);
 }
 
 App.propTypes = {
-	gridStore: React.PropTypes.object,
-	uiStore: React.PropTypes.object
+	gridStore: PropTypes.object,
+	uiStore: PropTypes.object
 };
 
 export default App;

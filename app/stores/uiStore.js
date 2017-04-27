@@ -22,6 +22,7 @@ class UiStore {
 	}
 
 	@action handleToggleEditDialog = opts => {
+		console.log('edit', opts);
 		this.dialogActive = !this.dialogActive;
 		this.item = {
 			...defaultItem,
@@ -29,9 +30,7 @@ class UiStore {
 				...defaultItem.options,
 				...opts.options
 			},
-			id: opts.id,
-			username: opts.username,
-			type: opts.type
+			...opts
 		};
 
 		this.searchResults = null;
@@ -48,5 +47,6 @@ class UiStore {
 }
 
 const uiStore = new UiStore();
+window.ui = uiStore;
 export default uiStore;
 export {UiStore};

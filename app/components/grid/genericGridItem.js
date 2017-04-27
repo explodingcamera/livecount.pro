@@ -1,5 +1,6 @@
 import React from 'react';
 import {observer} from 'mobx-react';
+import PropTypes from 'prop-types';
 
 import Counter from './counter';
 import {apiBase} from './../../constants';
@@ -81,7 +82,7 @@ import {apiBase} from './../../constants';
 }
 
 GridItem.propTypes = {
-	item: React.PropTypes.object
+	item: PropTypes.object
 };
 
 export default GridItem;

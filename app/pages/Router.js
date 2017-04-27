@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {Provider} from 'mobx-react';
 import {BrowserRouter} from 'react-router-dom';
 
@@ -15,6 +16,6 @@ export default class Router extends React.Component {
 }
 
 Router.propTypes = {
-	stores: React.PropTypes.object,
-	children: React.PropTypes.element
+	stores: PropTypes.object,
+	children: PropTypes.element
 };

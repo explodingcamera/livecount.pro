@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ripple from 'react-toolbox/lib/ripple';
 
 const CustomLink = props => {
@@ -12,7 +13,7 @@ const CustomLink = props => {
 };
 
 CustomLink.propTypes = {
-	children: React.PropTypes.array
+	children: PropTypes.array
 };
 
 const RippleLink = ripple({spread: 3, centered: true})(CustomLink);

@@ -1,4 +1,5 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import {ContextMenu, MenuItem, connectMenu} from 'react-contextmenu/es6';
 
 const DynamicMenu = props => {
@@ -7,10 +8,11 @@ const DynamicMenu = props => {
 	const items = [];
 
 	if (trigger) {
-		items.push(<MenuItem onClick={handleItemClick} data={{action: 'ADD_ITEM'}}>{`Add new livecount`}</MenuItem>);
+		items.push(<MenuItem data={{action: 'ADD_ITEM'}} onClick={handleItemClick}>{`Add new livecount` }</MenuItem>);
 		if (trigger.gridItem) {
-			items.push(<MenuItem onClick={handleItemClick} data={{action: 'REMOVE_ITEM'}}>{`Remove`}</MenuItem>);
-			items.push(<MenuItem onClick={handleItemClick} data={{action: 'EDIT_ITEM'}}>{`Edit`}</MenuItem>);
+			items.push(<MenuItem data={{action: 'REMOVE_ITEM'}} onClick={handleItemClick}>{`Remove`}</MenuItem>);
+			items.push(<MenuItem data={{action: 'EDIT_ITEM'}} onClick={handleItemClick}>{`Edit`}</MenuItem>);
+			items.push(<MenuItem data={{action: 'UPDATE_ITEM'}} onClick={handleItemClick}>{`Update`}</MenuItem>);
 		}
 		items.push(<MenuItem onClick={handleItemClick}>{`Cancel`}</MenuItem>);
 	}

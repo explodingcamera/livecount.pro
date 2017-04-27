@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {autorun} from 'mobx';
 import {observer} from 'mobx-react';
 import Odometer from 'odometer/odometer';
@@ -72,10 +73,10 @@ import css from 'css/grid.css';
 }
 
 GridItem.propTypes = {
-	demo: React.PropTypes.bool,
-	item: React.PropTypes.object,
-	children: React.PropTypes.element,
-	className: React.PropTypes.string
+	demo: PropTypes.bool,
+	item: PropTypes.object,
+	children: PropTypes.element,
+	className: PropTypes.string
 };
 
 export default GridItem;

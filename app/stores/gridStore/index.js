@@ -76,30 +76,23 @@ class GridStore {
 	}
 
 	@action addGridItem = async opts => {
-		opts.id = this.selectedGrid.index += 1;
-		const newItem = new GridItem();
-		await newItem.init(opts);
+		this.selectedGrid.index += 1;
+		opts.id = this.selectedGrid.index;
+
+		const newItem = new GridItem(opts);
+		await newItem.init();
 		this.items.push(newItem);
-		return;
 	}
 
 	@action editGridItem = async opts => {
-		console.log('editiong ', opts);
 		const lookup = this.items.map(item => item.id);
 		const itemIndex = lookup.indexOf(opts.id);
-
-		const newItem = new GridItem();
-		await newItem.init(opts);
 
 		if (itemIndex === -1) {
 			return new Error('No item with the supplied id exists.');
 		}
 
-		this.enableGrid = false;
-		this.items[itemIndex] = newItem;
-		setTimeout(() => {
-			this.enableGrid = true;
-		}, 0);
+		this.items[itemIndex].edit(opts);
 	}
 
 	@action removeGridItem = id => {
@@ -123,7 +116,8 @@ const hydrate = create({
 	storage: localStorage
 });
 
-const gridStore = window.grid = new GridStore();
+const gridStore = new GridStore();
+window.grid = gridStore;
 export default gridStore;
 export {GridStore};
 
