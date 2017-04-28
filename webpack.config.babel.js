@@ -1,16 +1,26 @@
 import webpack from 'webpack';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import SriPlugin from 'webpack-subresource-integrity';
-import HtmlWebpackHarddiskPlugin from 'html-webpack-harddisk-plugin';
 import path from 'path';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 import ManifestPlugin from 'webpack-manifest-plugin';
-import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
+import UglifyPlugin from 'uglifyjs-webpack-plugin';
+import SriPlugin from 'webpack-subresource-integrity';
+import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import HtmlWebpackHarddiskPlugin from 'html-webpack-harddisk-plugin';
+
 import pkg from './package.json';
 
 const prod = process.env.NODE_ENV === 'production';
 
 const externals = {};
+
+const babelPresets = [['env', {
+	targets: {
+		chrome: 56,
+		firefox: 45,
+		edge: 14
+	},
+	modules: false
+}], 'react', 'stage-0'];
 
 const plugins = [
 	new webpack.optimize.CommonsChunkPlugin({
@@ -35,7 +45,10 @@ if (prod) {
 				NODE_ENV: JSON.stringify('production')
 			}
 		}),
-		new UglifyJsPlugin(),
+		new UglifyPlugin({
+			comments: false,
+			mangle: true
+		}),
 		new ExtractTextPlugin({filename: '[name].[hash].css', allChunks: true}),
 		new SriPlugin({
 			hashFuncNames: ['sha256', 'sha384', 'sha512'],
@@ -68,14 +81,7 @@ export default {
 			enforce: 'pre',
 			loader: 'babel-loader',
 			options: {
-				presets: [['env', {
-					targets: {
-						chrome: 56,
-						firefox: 45,
-						edge: 14
-					},
-					modules: false
-				}], 'react', 'stage-0'],
+				presets: babelPresets,
 				plugins: ['transform-decorators-legacy']
 			}
 		},
@@ -101,7 +107,7 @@ export default {
 		}
 		]
 	},
-	devtool: 'inline-source-map',
+	devtool: 'eval',
 	devServer: {
 		watchContentBase: true,
 		contentBase: [path.join(__dirname, 'build'), path.join(__dirname, 'public')],
