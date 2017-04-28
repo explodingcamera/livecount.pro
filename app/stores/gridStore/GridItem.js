@@ -76,4 +76,8 @@ export default class GridItem {
 		});
 		Object.assign(this, updateItem(this));
 	}
+
+	updateItem() {
+		Object.assign(this, updateItem(this));
+	}
 }

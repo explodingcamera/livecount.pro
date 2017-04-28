@@ -6,6 +6,7 @@ import Counter from './counter';
 
 @observer class GridItem extends React.Component {
 	componentWillMount() {
+		this.props.item.updateItem();
 		this.disabled = false;
 		this.updateCounter();
 	}

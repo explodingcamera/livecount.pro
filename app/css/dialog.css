@@ -1,3 +1,6 @@
+.dialog {
+  overflow: visible;
+}
 .dialog section {
   padding-bottom: 0;
 }
