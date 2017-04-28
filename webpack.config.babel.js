@@ -3,7 +3,6 @@ import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import ManifestPlugin from 'webpack-manifest-plugin';
 import UglifyPlugin from 'uglifyjs-webpack-plugin';
-// Import SriPlugin from 'webpack-subresource-integrity';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import HtmlWebpackHarddiskPlugin from 'html-webpack-harddisk-plugin';
 
@@ -47,13 +46,9 @@ if (prod) {
 		}),
 		new UglifyPlugin({
 			comments: false,
-			mangle: true
+			mangle: false
 		}),
 		new ExtractTextPlugin({filename: '[name].[hash].css', allChunks: true})
-		// New SriPlugin({
-		// 	hashFuncNames: ['sha256', 'sha384', 'sha512'],
-		// 	enabled: true
-		// })
 	]);
 }
 

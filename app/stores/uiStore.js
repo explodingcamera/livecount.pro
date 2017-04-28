@@ -10,7 +10,14 @@ const defaultItem = {
 };
 
 class UiStore {
-	@observable item = defaultItem;
+	@observable item = {
+		type: 'yt-subs',
+		userId: null,
+		username: '',
+		options: {
+			enablePicture: true
+		}
+	};
 	@observable dialogActive = false;
 	@observable disableContextMenu = false;
 	@observable searchResults;
