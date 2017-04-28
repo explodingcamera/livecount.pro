@@ -5,8 +5,6 @@ const youtube = async args => {
 		...args
 	};
 
-	console.log(options);
-
 	options.username = options.username || 'saschavona';
 	const url = `${apiBase}/youtube/search/user/${options.username}`;
 	const response = await fetch(url, {method: 'get'});

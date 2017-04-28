@@ -24,7 +24,6 @@ import {dropdownTypes} from './../../constants';
 	}
 	handleEditGridItem = async () => {
 		const item = this.props.uiStore.item;
-		console.log(item);
 		try {
 			await this.props.gridStore.editGridItem(item);
 			this.props.uiStore.handleToggleDialog();
@@ -35,9 +34,6 @@ import {dropdownTypes} from './../../constants';
 
 	handleSearch = async () => {
 		const {username} = this.props.uiStore.item;
-
-		console.log(username);
-
 		try {
 			const {dropdown} = await search.youtube({username});
 			this.props.uiStore.searchResults = dropdown;
@@ -53,7 +49,7 @@ import {dropdownTypes} from './../../constants';
 			{label: 'Cancel', onClick: uiStore.handleToggleDialog}
 		];
 		actions.push(
-			this.props.uiStore.item.id ? (
+			this.props.uiStore.editing ? (
 				{label: 'Edit', onClick: this.handleEditGridItem}
 			) : (
 				{label: 'Add', onClick: this.handleAddGridItem}
@@ -66,7 +62,6 @@ import {dropdownTypes} from './../../constants';
 			(uiStore.item.username.indexOf('UC') === 0 && uiStore.item.username.length === 24)
 		);
 
-		console.log(uiStore.searchResults);
 		const YouTubeUserSearch = (
 			<div>
 				<div className={css.searchWrapper}>

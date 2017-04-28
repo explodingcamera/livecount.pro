@@ -5,6 +5,8 @@ import {defaultOptions} from './../../constants';
 import getUser from './getUser';
 import pageWidth from 'util/pageWidth';
 
+import updateItem from './updateItem';
+
 export default class GridItem {
 	@observable fontSize;
 	@observable icon;
@@ -38,12 +40,15 @@ export default class GridItem {
 
 	// NORMAL FUNCTIONS
 	constructor(options) {
-		console.log(this._fontSize);
 		Object.assign(this, options);
 
 		this.pageWidth = pageWidth;
 		this.setFontSize();
 		autorun(this.setFontSize);
+
+		if (this.options) {
+			Object.assign(this, updateItem(this));
+		}
 	}
 
 	async init() {
@@ -56,6 +61,7 @@ export default class GridItem {
 			...defaultOptions,
 			...this.options
 		});
+		Object.assign(this, updateItem(this));
 	}
 
 	async edit(args) {
@@ -68,5 +74,6 @@ export default class GridItem {
 			...defaultOptions,
 			...this.options
 		});
+		Object.assign(this, updateItem(this));
 	}
 }

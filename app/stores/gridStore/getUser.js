@@ -9,8 +9,6 @@ export default async function updateUser(args) {
 
 	options.username.replace(socialUrlRegex, '');
 
-	console.log(options);
-
 	try {
 		if (options.type.indexOf('yt') === 0) {
 			if (options.userId || (options.username.indexOf('UC') === 0 && options.username.length === 24)) {

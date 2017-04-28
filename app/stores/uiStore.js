@@ -10,6 +10,7 @@ const defaultItem = {
 };
 
 class UiStore {
+	@observable editing = false;
 	@observable item = {
 		type: 'yt-subs',
 		userId: null,
@@ -23,13 +24,17 @@ class UiStore {
 	@observable searchResults;
 
 	@action handleToggleDialog = () => {
+		if (!this.dialogActive) {
+			this.editing = false;
+		}
 		this.dialogActive = !this.dialogActive;
 		this.item = defaultItem;
 		this.searchResults = null;
 	}
 
 	@action handleToggleEditDialog = opts => {
-		console.log('edit', opts);
+		this.editing = !this.dialogActive;
+
 		this.dialogActive = !this.dialogActive;
 		this.item = {
 			...defaultItem,
