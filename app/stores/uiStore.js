@@ -22,6 +22,8 @@ class UiStore {
 	@observable dialogActive = false;
 	@observable disableContextMenu = false;
 	@observable searchResults;
+	@observable errorActive = false;
+	@observable errorMessage = '';
 
 	@action handleToggleDialog = () => {
 		if (!this.dialogActive) {
@@ -55,6 +57,18 @@ class UiStore {
 		} else {
 			this.item[event.target.name] = value;
 		}
+	}
+
+	@action error = (text, time) => {
+		if (this.errorActive) {
+			return;
+		}
+		console.info(text);
+		this.errorActive = true;
+		this.errorMessage = text;
+		setTimeout(() => {
+			this.errorActive = false;
+		}, time ? time : 4000);
 	}
 }
 

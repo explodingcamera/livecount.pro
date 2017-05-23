@@ -19,7 +19,7 @@ import {dropdownTypes} from './../../constants';
 			await this.props.gridStore.addGridItem(item);
 			this.props.uiStore.handleToggleDialog();
 		} catch (e) {
-			console.error(e);
+			this.props.uiStore.error(`Couldn't get User Info: ${item.username}`);
 		}
 	}
 	handleEditGridItem = async () => {
@@ -28,7 +28,7 @@ import {dropdownTypes} from './../../constants';
 			await this.props.gridStore.editGridItem(item);
 			this.props.uiStore.handleToggleDialog();
 		} catch (e) {
-			console.error(e);
+			this.props.uiStore.error(`Couldn't get new User Info`);
 		}
 	}
 
@@ -39,7 +39,8 @@ import {dropdownTypes} from './../../constants';
 			this.props.uiStore.searchResults = dropdown;
 			this.props.uiStore.item.userId = dropdown[0].value;
 		} catch (e) {
-			this.props.uiStore.searchResults = [];
+			this.props.uiStore.searchResults = null;
+			this.props.uiStore.error(`Could not find ${username} on youtube`);
 		}
 	}
 
